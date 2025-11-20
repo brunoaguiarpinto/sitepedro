@@ -19,11 +19,11 @@ const Contact: React.FC = () => {
                 <MapPin className="w-8 h-8 text-gold-500 mb-6 group-hover:scale-110 transition-transform" />
                 <h3 className="text-white font-bold uppercase tracking-wider mb-4">Showroom</h3>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                    Rua Abias Batista Filho, 211<br/>
-                    Portal Itayara, Campo Grande - MS<br/>
-                    CEP: 79.032-274
+                    Av. Nelly Martins, 352<br/>
+                    Carandá Bosque, Campo Grande - MS<br/>
+                    CEP: 79.031-100
                 </p>
-                <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="text-gold-500 text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+                <a href="https://maps.google.com/?q=Av.+Nelly+Martins,+352+-+Carand%C3%A1+Bosque,+Campo+Grande+-+MS" target="_blank" rel="noreferrer" className="text-gold-500 text-xs font-bold uppercase tracking-widest flex items-center gap-1">
                     Ver no mapa <ArrowUpRight className="w-3 h-3" />
                 </a>
             </div>
@@ -56,7 +56,7 @@ const Contact: React.FC = () => {
 
         <div className="rounded-xl overflow-hidden h-96 border border-white/10 shadow-2xl">
              <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3737.9798670174745!2d-54.5899!3d-20.4645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDI3JzUyLjIiUyA1NMKwMzUnMjMuNiJX!5e0!3m2!1sen!2sbr!4v1625680000000!5m2!1sen!2sbr" 
+              src="https://www.google.com/maps?q=Av.+Nelly+Martins,+352+-+Carand%C3%A1+Bosque,+Campo+Grande+-+MS&output=embed" 
               width="100%" 
               height="100%" 
               style={{ border: 0, filter: 'grayscale(100%) invert(92%) contrast(83%)' }} 

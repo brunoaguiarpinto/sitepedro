@@ -40,8 +40,8 @@ const Footer: React.FC = () => {
             <div className="flex items-start gap-3 text-sm text-gray-500 leading-relaxed">
               <MapPin className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
               <span>
-                Rua Abias Batista Filho, 211<br/>
-                Portal Itayara<br/>
+                Av. Nelly Martins, 352<br/>
+                Carandá Bosque<br/>
                 Campo Grande - MS
               </span>
             </div>
