@@ -1,14 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Vehicle } from '../types';
-import { Loader2, Tag, Calendar, Gauge, Fuel, ArrowRight, Search, Filter, ChevronDown } from 'lucide-react';
+import { Loader2, Tag, Calendar, Gauge, Fuel, ArrowRight, Search, Filter, X } from 'lucide-react';
 
 const STORAGE_URL = "https://xiapmvxuksphlpeiljvr.supabase.co/storage/v1/object/public/vehicle-photos/";
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1562911791-c7a97b729ec5?auto=format&fit=crop&w=800&q=80';
 
 const InventoryTeaser: React.FC = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+
+  const normalizePhotoInput = (input: any): string[] => {
+    if (!input) return [];
+
+    if (Array.isArray(input)) {
+      return input
+        .map((photo) => {
+          if (typeof photo === 'string') return photo;
+          if (photo && typeof photo === 'object') return photo.url || photo.key;
+          return null;
+        })
+        .filter((value): value is string => Boolean(value));
+    }
+
+    if (typeof input === 'string') {
+      try {
+        const parsed = JSON.parse(input);
+        if (Array.isArray(parsed)) return normalizePhotoInput(parsed);
+      } catch {
+        return [input];
+      }
+    }
+
+    return [];
+  };
 
   const normalizeVehicle = (data: any): Vehicle => {
     const relationPhotos = Array.isArray(data.vehicle_photos)
@@ -17,12 +44,13 @@ const InventoryTeaser: React.FC = () => {
           .filter(Boolean)
       : [];
 
-    const fallbackPhotos =
+    const fallbackPhotos = normalizePhotoInput(
       data.photos ||
       data.fotos ||
       data.imagens ||
       data.gallery ||
-      [];
+      []
+    );
 
     const normalizedPhotos =
       relationPhotos.length > 0 ? relationPhotos : fallbackPhotos;
@@ -44,24 +72,10 @@ const InventoryTeaser: React.FC = () => {
   };
 
   const getImageUrl = (car: Vehicle): string => {
-    const fallback = 'https://images.unsplash.com/photo-1562911791-c7a97b729ec5?auto=format&fit=crop&w=800&q=80';
-    let photoPath = '';
-    const photos = car.photos;
+    const photos = normalizePhotoInput(car.photos);
+    const photoPath = photos[0];
 
-    if (Array.isArray(photos) && photos.length > 0) {
-        const first = photos[0];
-        photoPath = typeof first === 'object' ? (first.url || first.key) : first;
-    } else if (typeof photos === 'string') {
-        try {
-            const parsed = JSON.parse(photos);
-            if (Array.isArray(parsed) && parsed.length > 0) photoPath = parsed[0];
-            else photoPath = photos;
-        } catch {
-            photoPath = photos;
-        }
-    }
-
-    if (!photoPath) return fallback;
+    if (!photoPath) return DEFAULT_IMAGE;
     if (photoPath.startsWith('http')) return photoPath;
     const cleanPath = photoPath.replace(/^\/+/, '');
     return `${STORAGE_URL}${cleanPath}`;
@@ -118,6 +132,22 @@ const InventoryTeaser: React.FC = () => {
       car.version?.toLowerCase().includes(search)
     );
   });
+
+  const openGallery = (car: Vehicle) => {
+    setSelectedVehicle(car);
+  };
+
+  const closeGallery = () => setSelectedVehicle(null);
+
+  const getGalleryPhotos = (car: Vehicle | null): string[] => {
+    if (!car) return [];
+    const photos = normalizePhotoInput(car.photos);
+    if (!photos.length) return [DEFAULT_IMAGE];
+    return photos.map((photo) => {
+      if (photo.startsWith('http')) return photo;
+      return `${STORAGE_URL}${photo.replace(/^\/+/, '')}`;
+    });
+  };
 
   return (
     <section id="inventory" className="bg-gray-100 pb-24 relative">
@@ -238,14 +268,21 @@ const InventoryTeaser: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="mt-auto pt-4 border-t border-gray-100 text-center">
+                  <div className="mt-auto pt-4 border-t border-gray-100 flex flex-col gap-3">
+                    <button
+                      className="w-full inline-flex items-center justify-center gap-2 bg-navy-950 text-white text-xs font-bold uppercase tracking-widest py-3 rounded hover:bg-gold-500 hover:text-navy-950 transition-colors"
+                      onClick={() => openGallery(car)}
+                    >
+                      Ver galeria
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
                     <a 
                         href={`https://wa.me/556791949194?text=Olá, tenho interesse no ${car.make} ${car.model}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-navy-950 font-bold uppercase tracking-widest text-xs hover:text-gold-600 transition-colors"
+                        className="inline-flex items-center justify-center gap-2 text-navy-950 font-bold uppercase tracking-widest text-xs hover:text-gold-600 transition-colors"
                     >
-                        Mais Detalhes <ArrowRight className="w-4 h-4" />
+                        Falar no WhatsApp <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
@@ -255,12 +292,54 @@ const InventoryTeaser: React.FC = () => {
         )}
         
         <div className="mt-16 text-center">
-             <a href="https://app.lordmotors.com.br" className="inline-block bg-white border border-gray-200 text-navy-950 px-10 py-4 font-bold uppercase tracking-widest hover:bg-navy-950 hover:text-white transition-all duration-300 rounded shadow-sm">
-                Ver Estoque Completo
+             <a href="#contact" className="inline-block bg-white border border-gray-200 text-navy-950 px-10 py-4 font-bold uppercase tracking-widest hover:bg-navy-950 hover:text-white transition-all duration-300 rounded shadow-sm">
+                Fale com nossa equipe
              </a>
         </div>
 
       </div>
+
+      {selectedVehicle && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center px-4 py-8">
+          <div className="bg-white rounded shadow-2xl w-full max-w-5xl max-h-full overflow-hidden flex flex-col">
+            <div className="flex items-start justify-between border-b border-gray-100 px-6 py-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
+                  {selectedVehicle.make}
+                </p>
+                <h3 className="text-2xl font-serif font-bold text-navy-950">
+                  {selectedVehicle.model}
+                </h3>
+                <p className="text-sm text-gray-500">{selectedVehicle.version}</p>
+              </div>
+              <button
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+                onClick={closeGallery}
+                aria-label="Fechar galeria"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {getGalleryPhotos(selectedVehicle).map((photo, index) => (
+                  <div
+                    key={`${selectedVehicle.id}-photo-${index}`}
+                    className="relative overflow-hidden rounded border border-gray-100 bg-gray-50"
+                  >
+                    <img
+                      src={photo}
+                      alt={`${selectedVehicle.make} ${selectedVehicle.model} foto ${index + 1}`}
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
