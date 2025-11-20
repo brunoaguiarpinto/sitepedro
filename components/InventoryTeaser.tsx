@@ -10,7 +10,7 @@ const InventoryTeaser: React.FC = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const normalizePhotoInput = (input: any): string[] => {
     if (!input) return [];
@@ -133,14 +133,11 @@ const InventoryTeaser: React.FC = () => {
     );
   });
 
-  const openGallery = (car: Vehicle) => {
-    setSelectedVehicle(car);
-  };
+  const displayedVehicles = filteredVehicles.slice(0, 9);
 
-  const closeGallery = () => setSelectedVehicle(null);
+  const closeGallery = () => setIsGalleryOpen(false);
 
-  const getGalleryPhotos = (car: Vehicle | null): string[] => {
-    if (!car) return [];
+  const getGalleryPhotos = (car: Vehicle): string[] => {
     const photos = normalizePhotoInput(car.photos);
     if (!photos.length) return [DEFAULT_IMAGE];
     return photos.map((photo) => {
@@ -216,7 +213,7 @@ const InventoryTeaser: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredVehicles.map((car, index) => (
+            {displayedVehicles.map((car, index) => (
               <div key={car.id || index} className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 flex flex-col border border-gray-100">
                 
                 {/* Image Area */}
@@ -269,13 +266,6 @@ const InventoryTeaser: React.FC = () => {
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-gray-100 flex flex-col gap-3">
-                    <button
-                      className="w-full inline-flex items-center justify-center gap-2 bg-navy-950 text-white text-xs font-bold uppercase tracking-widest py-3 rounded hover:bg-gold-500 hover:text-navy-950 transition-colors"
-                      onClick={() => openGallery(car)}
-                    >
-                      Ver galeria
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
                     <a 
                         href={`https://wa.me/556791949194?text=Olá, tenho interesse no ${car.make} ${car.model}`}
                         target="_blank"
@@ -291,7 +281,13 @@ const InventoryTeaser: React.FC = () => {
           </div>
         )}
         
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center flex flex-col sm:flex-row gap-4 justify-center">
+             <button
+               className="inline-flex items-center justify-center gap-2 bg-navy-950 text-white px-10 py-4 font-bold uppercase tracking-widest hover:bg-gold-500 hover:text-navy-950 transition-all duration-300 rounded shadow-sm"
+               onClick={() => setIsGalleryOpen(true)}
+             >
+                Ver Galeria <ArrowRight className="w-4 h-4" />
+             </button>
              <a href="#contact" className="inline-block bg-white border border-gray-200 text-navy-950 px-10 py-4 font-bold uppercase tracking-widest hover:bg-navy-950 hover:text-white transition-all duration-300 rounded shadow-sm">
                 Fale com nossa equipe
              </a>
@@ -299,18 +295,20 @@ const InventoryTeaser: React.FC = () => {
 
       </div>
 
-      {selectedVehicle && (
+      {isGalleryOpen && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center px-4 py-8">
-          <div className="bg-white rounded shadow-2xl w-full max-w-5xl max-h-full overflow-hidden flex flex-col">
+          <div className="bg-white rounded shadow-2xl w-full max-w-6xl max-h-full overflow-hidden flex flex-col">
             <div className="flex items-start justify-between border-b border-gray-100 px-6 py-4">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
-                  {selectedVehicle.make}
+                  Galeria Completa
                 </p>
                 <h3 className="text-2xl font-serif font-bold text-navy-950">
-                  {selectedVehicle.model}
+                  Carros disponíveis
                 </h3>
-                <p className="text-sm text-gray-500">{selectedVehicle.version}</p>
+                <p className="text-sm text-gray-500">
+                  Explore todas as fotos e detalhes dos veículos cadastrados.
+                </p>
               </div>
               <button
                 className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -321,18 +319,42 @@ const InventoryTeaser: React.FC = () => {
               </button>
             </div>
             <div className="p-6 overflow-y-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {getGalleryPhotos(selectedVehicle).map((photo, index) => (
-                  <div
-                    key={`${selectedVehicle.id}-photo-${index}`}
-                    className="relative overflow-hidden rounded border border-gray-100 bg-gray-50"
-                  >
-                    <img
-                      src={photo}
-                      alt={`${selectedVehicle.make} ${selectedVehicle.model} foto ${index + 1}`}
-                      className="w-full h-64 object-cover"
-                      loading="lazy"
-                    />
+              <div className="space-y-8">
+                {vehicles.map((car) => (
+                  <div key={car.id} className="border border-gray-100 rounded-lg p-4 shadow-sm">
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-4">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
+                          {car.make}
+                        </p>
+                        <h4 className="text-xl font-serif font-bold text-navy-950">
+                          {car.model}
+                        </h4>
+                        <p className="text-sm text-gray-500">{car.version}</p>
+                      </div>
+                      <div className="flex flex-wrap gap-3 text-xs uppercase tracking-wider text-gray-600">
+                        <span>{car.year_manufacture}/{car.year_model || car.year_manufacture}</span>
+                        {car.mileage && <span>{car.mileage} km</span>}
+                        {car.fuel && <span>{car.fuel}</span>}
+                        {car.transmission && <span>{car.transmission}</span>}
+                        <span className="font-bold text-navy-950">{formatPrice(car.price)}</span>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {getGalleryPhotos(car).map((photo, index) => (
+                        <div
+                          key={`${car.id}-gallery-${index}`}
+                          className="relative overflow-hidden rounded border border-gray-100 bg-gray-50"
+                        >
+                          <img
+                            src={photo}
+                            alt={`${car.make} ${car.model} foto ${index + 1}`}
+                            className="w-full h-48 object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
