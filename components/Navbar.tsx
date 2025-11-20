@@ -20,19 +20,15 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-        {/* Sophisticated Typographic Logo */}
+        {/* Logo Image */}
         <div className="flex items-center">
-            <a href="#" className="group flex flex-col justify-center relative">
-                <div className="flex items-center gap-3">
-                    <div className="border-l-4 border-gold-500 pl-3 py-1">
-                        <h1 className="text-2xl md:text-3xl font-serif font-black text-white tracking-widest leading-none">
-                            LORD
-                        </h1>
-                        <span className="text-xs md:text-sm text-gold-500 tracking-[0.4em] uppercase font-sans font-bold block mt-1">
-                            MOTORS
-                        </span>
-                    </div>
-                </div>
+            <a href="#home" className="block">
+              <img 
+                src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png" 
+                alt="Lord Motors" 
+                className="h-12 w-auto object-contain drop-shadow-lg"
+                loading="lazy"
+              />
             </a>
         </div>
 
