@@ -72,7 +72,7 @@ const InventoryTeaser: React.FC = () => {
   };
 
   const getImageUrl = (car: Vehicle): string => {
-    const photos = normalizePhotoInput(car.photos);
+    const photos = normalizePhotoInput(car?.photos);
     const photoPath = photos[0];
 
     if (!photoPath) return DEFAULT_IMAGE;
@@ -96,8 +96,8 @@ const InventoryTeaser: React.FC = () => {
         const { data, error } = await supabase
           .from('vehicles')
           .select('*, vehicle_photos(file_url)')
-          .neq('status', 'sold')
-          .order('id', { ascending: false });
+          .eq('status', 'own')
+          .order('created_at', { ascending: false });
 
         if (error) throw error;
 
@@ -139,7 +139,7 @@ const InventoryTeaser: React.FC = () => {
   const closeGallery = () => setIsGalleryOpen(false);
 
   const getGalleryPhotos = (car: Vehicle): string[] => {
-    const photos = normalizePhotoInput(car.photos);
+    const photos = normalizePhotoInput(car?.photos);
     if (!photos.length) return [DEFAULT_IMAGE];
     return photos.map((photo) => {
       if (photo.startsWith('http')) return photo;
