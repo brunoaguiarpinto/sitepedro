@@ -69,6 +69,14 @@ const InventoryTeaser: React.FC = () => {
 
   useEffect(() => {
     const fetchVehicles = async () => {
+      if (!supabase) {
+        console.warn(
+          'Supabase não configurado. Adicione as variáveis de ambiente para carregar os veículos.'
+        );
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const { data, error } = await supabase

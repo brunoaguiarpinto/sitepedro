@@ -22,3 +22,7 @@ View your app in AI Studio: https://ai.studio/apps/drive/1DyzqoDw5IxszZwXkJOrGrn
    ```
 3. Run the app:
    `npm run dev`
+
+> **Deploy (Vercel)**  
+> - No painel da Vercel, crie as variáveis `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` antes do build.  
+> - Caso estejam ausentes, o site permanece no ar, porém o inventário exibirá apenas o estado de carregamento e um aviso aparecerá no console.
