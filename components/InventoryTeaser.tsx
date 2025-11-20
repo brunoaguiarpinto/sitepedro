@@ -96,6 +96,7 @@ const InventoryTeaser: React.FC = () => {
         const { data, error } = await supabase
           .from('vehicles')
           .select('*, vehicle_photos(file_url)')
+          .neq('status', 'sold')
           .order('id', { ascending: false });
 
         if (error) throw error;
