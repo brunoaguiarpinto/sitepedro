@@ -17,12 +17,12 @@ const Navbar: React.FC = () => {
   return (
     <nav 
       className={`w-full transition-all duration-500 z-40 ${
-        isScrolled ? 'bg-navy-950 shadow-2xl border-b border-white/10 py-4' : 'bg-gradient-to-b from-black/80 to-transparent py-6'
-      }`}
+        isScrolled ? 'bg-navy-950 shadow-2xl border-b border-white/10' : 'bg-gradient-to-b from-black/80 to-transparent'
+      } py-0`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-2 md:py-3">
         {/* Logo Image */}
-        <div className="flex items-center min-h-[64px]">
+        <div className="flex items-center min-h-[10rem]">
             <a href="#home" className="block">
               {logoFailed ? (
                 <div className="flex items-center gap-3">
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
                 <img 
                   src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png" 
                   alt="Lord Motors" 
-                  className="h-16 md:h-20 w-auto object-contain drop-shadow-lg"
+                  className="h-32 md:h-40 w-auto object-contain drop-shadow-lg"
                   onError={() => setLogoFailed(true)}
                 />
               )}
