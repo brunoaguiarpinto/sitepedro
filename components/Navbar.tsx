@@ -14,13 +14,15 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navStateClasses = isScrolled
+    ? 'bg-navy-950 shadow-2xl border-b border-white/10 py-4'
+    : 'bg-gradient-to-b from-black/80 to-transparent py-6';
+
   return (
     <nav 
-      className={`w-full transition-all duration-500 z-40 ${
-        isScrolled ? 'bg-navy-950 shadow-2xl border-b border-white/10' : 'bg-gradient-to-b from-black/80 to-transparent'
-      } py-0`}
+      className={`w-full transition-all duration-500 z-40 ${navStateClasses}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-2 md:py-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         {/* Logo Image */}
         <div className="flex items-center min-h-[10rem]">
             <a href="#home" className="block">
