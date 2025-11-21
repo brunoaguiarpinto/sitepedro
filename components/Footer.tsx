@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
                 <img 
                   src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png"
                   alt="Lord Motors"
-                  className="h-20 md:h-24 w-auto object-contain drop-shadow-lg"
+                  className="h-32 md:h-40 w-auto object-contain drop-shadow-lg"
                   loading="lazy"
                   onError={handleLogoError}
                 />
