@@ -203,7 +203,7 @@ const InventoryTeaser: React.FC = () => {
           </h2>
           <div className="h-1 w-24 bg-gold-500 mx-auto mb-4"></div>
           <p className="text-gray-500 uppercase tracking-widest text-sm">
-            {filteredVehicles.length} Veículos de Alto Padrão
+            {filteredVehicles.length} oportunidades em compra, venda e consignação
           </p>
         </div>
 

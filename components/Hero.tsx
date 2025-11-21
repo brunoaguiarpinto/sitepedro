@@ -32,8 +32,7 @@ const Hero: React.FC = () => {
           </h1>
           
           <p className="text-gray-200 text-base md:text-xl max-w-2xl font-light leading-relaxed mb-12 border-l-4 border-white/20 pl-6">
-            Descubra uma curadoria exclusiva de veículos premium e superesportivos. 
-            Performance, design e a garantia Lord Motors.
+            Compra, venda e consignação de veículos de todas as categorias, dos utilitários aos esportivos exclusivos. Transparência e garantia Lord Motors em cada negociação.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">

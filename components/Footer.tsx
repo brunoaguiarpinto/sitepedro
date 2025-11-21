@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
                 </span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              Transformando sonhos em realidade. A Lord Motors é sinônimo de qualidade e procedência no mercado automotivo de luxo.
+              Compra, venda e consignação de veículos com transparência. Cuidamos de cada etapa para que você negocie com segurança e comodidade.
             </p>
             <div className="flex space-x-4">
                 <a href="#" className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full text-gray-400 hover:text-gold-500 hover:border-gold-500 transition-all duration-300">

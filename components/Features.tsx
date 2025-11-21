@@ -10,13 +10,13 @@ const Features: React.FC = () => {
     },
     {
       icon: <Key className="w-10 h-10" />,
-      title: "Veículos Novos",
-      description: "Acesso às melhores opções de automóveis, camionetas e utilitários zero km do mercado."
+      title: "Compra Imediata",
+      description: "Avaliamos e compramos carros de todas as categorias de forma rápida e segura."
     },
     {
       icon: <RefreshCw className="w-10 h-10" />,
-      title: "Seminovos Premium",
-      description: "Veículos usados rigorosamente inspecionados e com procedência garantida."
+      title: "Venda Facilitada",
+      description: "Assumimos todo o processo de venda para que você lucre sem se preocupar."
     },
     {
       icon: <Gem className="w-10 h-10" />,
