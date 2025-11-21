@@ -14,17 +14,20 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navStateClasses = isScrolled
-    ? 'bg-navy-950 shadow-2xl border-b border-white/10 py-4'
-    : 'bg-gradient-to-b from-black/80 to-transparent py-6';
+  const navClasses = isScrolled
+    ? 'bg-navy-950 shadow-2xl border-b border-white/10'
+    : 'bg-gradient-to-b from-black/80 to-transparent';
+
+  const logoWrapperClasses = isScrolled ? 'min-h-[8rem]' : 'min-h-[10rem]';
+  const logoImageClasses = isScrolled ? 'h-24 md:h-28' : 'h-32 md:h-40';
 
   return (
     <nav 
-      className={`w-full transition-all duration-500 z-40 ${navStateClasses}`}
+      className={`w-full transition-all duration-500 z-40 ${navClasses}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         {/* Logo Image */}
-        <div className="flex items-center min-h-[10rem]">
+        <div className={`flex items-center ${logoWrapperClasses}`}>
             <a href="#home" className="block">
               {logoFailed ? (
                 <div className="flex items-center gap-3">
@@ -41,7 +44,7 @@ const Navbar: React.FC = () => {
                 <img 
                   src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png" 
                   alt="Lord Motors" 
-                  className="h-32 md:h-40 w-auto object-contain drop-shadow-lg"
+                  className={`${logoImageClasses} w-auto object-contain drop-shadow-lg`}
                   onError={() => setLogoFailed(true)}
                 />
               )}
