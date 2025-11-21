@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         {/* Logo Image */}
-        <div className="flex items-center min-h-[128px]">
+        <div className="flex items-center min-h-[64px]">
             <a href="#home" className="block">
               {logoFailed ? (
                 <div className="flex items-center gap-3">
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
                 <img 
                   src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png" 
                   alt="Lord Motors" 
-                  className="h-32 md:h-40 w-auto object-contain drop-shadow-lg"
+                  className="h-16 md:h-20 w-auto object-contain drop-shadow-lg"
                   onError={() => setLogoFailed(true)}
                 />
               )}
