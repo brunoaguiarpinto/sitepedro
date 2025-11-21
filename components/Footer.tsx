@@ -14,28 +14,28 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
           <div className="col-span-1 md:col-span-1">
-             <div className="mb-6 flex flex-col items-start">
-                <img 
-                  src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png"
-                  alt="Lord Motors"
-                  className="h-32 md:h-40 w-auto object-contain drop-shadow-lg"
-                  loading="lazy"
-                  onError={handleLogoError}
-                />
-                <span className="sr-only text-2xl font-serif font-bold text-white tracking-widest">
-                    LORD <span className="text-gold-500">MOTORS</span>
-                </span>
+            <div className="mb-6 flex flex-col items-start">
+              <img
+                src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png"
+                alt="Lord Motors"
+                className="h-32 md:h-40 w-auto object-contain drop-shadow-lg"
+                loading="lazy"
+                onError={handleLogoError}
+              />
+              <span className="sr-only text-2xl font-serif font-bold text-white tracking-widest">
+                LORD <span className="text-gold-500">MOTORS</span>
+              </span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               Compra, venda e consignação de veículos com transparência. Cuidamos de cada etapa para que você negocie com segurança e comodidade.
             </p>
             <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full text-gray-400 hover:text-gold-500 hover:border-gold-500 transition-all duration-300">
-                    <Instagram className="w-4 h-4" />
-                </a>
-                 <a href="#" className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full text-gray-400 hover:text-gold-500 hover:border-gold-500 transition-all duration-300">
-                    <Facebook className="w-4 h-4" />
-                </a>
+              <a href="#" className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full text-gray-400 hover:text-gold-500 hover:border-gold-500 transition-all duration-300">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a href="#" className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full text-gray-400 hover:text-gold-500 hover:border-gold-500 transition-all duration-300">
+                <Facebook className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
@@ -54,8 +54,8 @@ const Footer: React.FC = () => {
             <div className="flex items-start gap-3 text-sm text-gray-500 leading-relaxed">
               <MapPin className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
               <span>
-                Av. Nelly Martins, 352<br/>
-                Carandá Bosque<br/>
+                Av. Nelly Martins, 352<br />
+                Carandá Bosque<br />
                 Campo Grande - MS
               </span>
             </div>
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
             <p className="text-gray-500 text-sm mb-4">
               Acesso restrito para equipe administrativa.
             </p>
-            <a 
+            <a
               href="https://app.lordmotors.com.br"
               className="inline-block px-6 py-3 border border-white/20 text-white text-xs font-bold uppercase tracking-widest hover:bg-gold-500 hover:text-black hover:border-gold-500 transition-all duration-300"
             >
@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
             <p>Arantes Automóveis Multimarcas Ltda - CNPJ: 48.234.972/0001-77</p>
           </div>
           <p className="text-gray-700 text-[0.65rem] uppercase tracking-wider">
-             Developed by AI Studio
+            Site e aplicativo desenvolvido por Instabots
           </p>
         </div>
       </div>
