@@ -14,41 +14,35 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navClasses = isScrolled
-    ? 'bg-navy-950 shadow-2xl border-b border-white/10'
-    : 'bg-gradient-to-b from-black/80 to-transparent';
-
-  const logoWrapperClasses = isScrolled ? 'min-h-[8rem]' : 'min-h-[10rem]';
-  const logoImageClasses = isScrolled ? 'h-24 md:h-28' : 'h-32 md:h-40';
-
   return (
-    <nav 
-      className={`w-full transition-all duration-500 z-40 ${navClasses}`}
+    <nav
+      className={`w-full transition-all duration-500 z-50 ${isScrolled ? 'bg-navy-950 shadow-2xl border-b border-white/10' : 'bg-gradient-to-b from-black/80 to-transparent'
+        } py-0`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
         {/* Logo Image */}
-        <div className={`flex items-center ${logoWrapperClasses}`}>
-            <a href="#home" className="block">
-              {logoFailed ? (
-                <div className="flex items-center gap-3">
-                  <div className="border-l-4 border-gold-500 pl-3 py-1">
-                      <h1 className="text-2xl md:text-3xl font-serif font-black text-white tracking-widest leading-none">
-                          LORD
-                      </h1>
-                      <span className="text-xs md:text-sm text-gold-500 tracking-[0.4em] uppercase font-sans font-bold block mt-1">
-                          MOTORS
-                      </span>
-                  </div>
+        <div className="relative w-48 h-full flex items-center">
+          <a href="#home" className="block">
+            {logoFailed ? (
+              <div className="flex items-center gap-3">
+                <div className="border-l-4 border-gold-500 pl-3 py-1">
+                  <h1 className="text-2xl md:text-3xl font-serif font-black text-white tracking-widest leading-none">
+                    LORD
+                  </h1>
+                  <span className="text-xs md:text-sm text-gold-500 tracking-[0.4em] uppercase font-sans font-bold block mt-1">
+                    MOTORS
+                  </span>
                 </div>
-              ) : (
-                <img 
-                  src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png" 
-                  alt="Lord Motors" 
-                  className={`${logoImageClasses} w-auto object-contain drop-shadow-lg`}
-                  onError={() => setLogoFailed(true)}
-                />
-              )}
-            </a>
+              </div>
+            ) : (
+              <img
+                src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png"
+                alt="Lord Motors"
+                className="absolute top-1/2 -translate-y-1/2 h-32 md:h-40 w-auto object-contain drop-shadow-lg max-w-none"
+                onError={() => setLogoFailed(true)}
+              />
+            )}
+          </a>
         </div>
 
         {/* Desktop Links */}
@@ -62,7 +56,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Button */}
-        <button 
+        <button
           className="md:hidden text-white hover:text-gold-500 transition-colors p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
