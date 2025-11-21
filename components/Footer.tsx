@@ -2,13 +2,27 @@ import React from 'react';
 import { Instagram, Facebook, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const handleLogoError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = event.currentTarget;
+    const fallback = target.nextElementSibling as HTMLElement | null;
+    target.style.display = 'none';
+    if (fallback) fallback.classList.remove('sr-only');
+  };
+
   return (
     <footer className="bg-black border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
           <div className="col-span-1 md:col-span-1">
-             <div className="mb-6">
-                <span className="text-2xl font-serif font-bold text-white tracking-widest">
+             <div className="mb-6 flex flex-col items-start">
+                <img 
+                  src="https://minioapi.instabots.com.br/videos/logolord-removebg-preview.png"
+                  alt="Lord Motors"
+                  className="h-20 md:h-24 w-auto object-contain drop-shadow-lg"
+                  loading="lazy"
+                  onError={handleLogoError}
+                />
+                <span className="sr-only text-2xl font-serif font-bold text-white tracking-widest">
                     LORD <span className="text-gold-500">MOTORS</span>
                 </span>
             </div>
